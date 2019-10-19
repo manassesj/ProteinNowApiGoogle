@@ -10,8 +10,6 @@
 
     $buscar  = mysqli_query($conexao, $sql);
 
-    echo $buscar['usuario'];
-
     $total = mysqli_num_rows($buscar);
 
     if($total > 0){

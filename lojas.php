@@ -2,105 +2,73 @@
 <html lang="pt">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Tela de Login</title>
+        <title>Tela das lojas</title>
 
         <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
                                 integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
                                 crossorigin="anonymous">
 
         <style type="text/css">
+            .texto{
+                font-size: 13px;
+            }
 
+            body{
+            }
         </style>
 
     </head>
     <body>
 
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand">Navbar</a>
+        <a class="navbar-brand"><img src="imagens/proteinNowLogo.png" alt="Protein Now" width=" 100px" height="90px"></a>
         <form class="form-inline">
             <input class="form-control mr-sm-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar">
             <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Pesquisar</button>
         </form>
     </nav>
 
-        <div class="container"" >
-
-            <div class="row">
-                <div class="col-md-6" style= "width: 70%">
-                    <table class="table" style="margin-top: 20px;">
-                        <thead>
-                            <tr>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Endereco</th>
-                            <th scope="col">Telefone</th>
-                            <th scope="col">Nota</th>
-                            <th scope="col">url</th>
-                            </tr>
-                        </thead>
-                        <tbody >
-                                <?php
-                                
-                                    include 'conexao.php';
-
-                                    $sql = "SELECT * FROM `loja`";
-                                    $busca = mysqli_query($conexao, $sql);
-
+    <div class="container" style="display: flex; margin: auto; max-width: 1300px;">
+                <table class="table" style="margin-top: 50px;border-radius:15px; border: 2px solid #f3f3f3;" >
+                    <thead class="black white-text"  style="background-color:#007bff; color: #fff">
+                        <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Endereco</th>
+                        <th scope="col">Telefone</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+                        <?php
+                            include 'conexao.php';
+                                $sql = "SELECT * FROM `loja`";
+                                $busca = mysqli_query($conexao, $sql);
                                     while ($array = mysqli_fetch_array($busca)){
 
                                         $id = $array['id'];
                                         $nome = $array['nome'];
                                         $endereco = $array['endereco'];
                                         $telefone = $array['telefone'];
-                                        $nota = $array['nota'];
-                                        $url = $array['url'];
 
-                                    
+                        ?>
+                        <tr>
+                            <th scope="row" class="texto"><a href="detalhe_loja.php?loja=<?php  echo $nome ?>"><?php  echo $nome ?></a></th>
+                            <td class="texto"><?php  echo $endereco ?></td>
+                            <td class="texto"><?php  echo $telefone ?></td>
 
-                                ?>
-                                <tr>
-                                    <th scope="row"><a href="detalhe_loja.php?loja=<?php  echo $nome ?>"><?php  echo $nome ?></a></th>
-                                    <td><?php  echo $endereco ?></td>
-                                    <td><?php  echo $telefone ?></td>
-                                    <td><?php  echo $nota ?></td>
-                                    <td><?php  echo $url ?></td>
+                            <?php } ?>
 
-                                    <?php } ?>
-
-                                </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                
-                <div class="col-md-6" >
-                    <table class="table" style="margin-top: 20px;">
-                        <thead>
-                            <center>
-                                <tr>
-                                    <th scope="col">Estados</th>
-                                </tr>
-                            </center>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row"></th>
-                                <td>Pernambuco</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"></th>
-                                <td>São Paulo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row"></th>
-                                <td>Rio de Janei</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                         </tr>
+                    </tbody>
+                </table>
+            <div class="estados" style="margin-top: 50px; margin-left:20px;">
+                <ul class="list-group" style="text-align: center;">
+                    <li class="list-group-item active" style="background-color: #ffc107;"><strong>Estados</strong></li>
+                    <li class="list-group-item"><a href="">Pernambuco</a></li>
+                    <li class="list-group-item"><a href="">São Paulo</a></li>
+                    <li class="list-group-item"><a href="">Para</a></li>
+                    <li class="list-group-item"><a href="">Rio de Janeiro</a></li>
+                </ul>                         
             </div>
-
         </div>
 
         
