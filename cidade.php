@@ -2,7 +2,7 @@
 <html lang="pt">
     <head>
         <meta charset="UTF-8">
-        <title>Tela das lojas</title>
+        <title>Tela das lojas/estados</title>
 
         <link rel="stylesheet"  href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
                                 integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
@@ -29,7 +29,28 @@
     </nav>
 
     <div class="container" style="display: flex; margin: auto; max-width: 1300px;">
-                <table class="table" style="margin-top: 50px;border-radius:15px; border: 2px solid #f3f3f3;" >
+
+        <div class="estados" style="margin-top: 50px;">
+                <ul class="list-group" style="text-align: center;">           
+                    <li class="list-group-item active" style="background-color: #ffc107;"><strong>Estados</strong></li>
+                        
+                    <?php
+                        include 'conexao.php';
+                        $sql = "SELECT * FROM `cidade`";
+                        $busca = mysqli_query($conexao, $sql);
+                        while ($array = mysqli_fetch_array($busca)){
+                            $id_cidade = $array['id'];
+                            $cidade_nome = $array['nome'];
+                            
+                            ?>
+
+                        <li class="list-group-item"><a href="cidade.php?cidade_nome=<?php echo $cidade_nome ?>&id_cidade=<?php echo $id_cidade ?>"><?php echo $cidade_nome ?></a></li>
+
+                        <?php } ?>
+                </ul>                                          
+            </div>            
+
+                <table class="table" style="margin-top: 50px;border-radius:15px; border: 2px solid #f3f3f3; margin-right:20px; margin-left:20px;" >
                     <thead class="black white-text"  style="background-color:#007bff; color: #fff">
                         <tr>
                         <th scope="col">Nome</th>
@@ -40,7 +61,13 @@
                     <tbody >
                         <?php
                             include 'conexao.php';
-                                $sql = "SELECT * FROM `loja`";
+
+                                $id_cidade = $_GET['id_cidade'];
+                                $cidade_nome = $_GET['cidade_nome'];
+                                
+                                $sql = "SELECT * FROM `loja` 
+                                        Where endereco LIKE CONCAT ( '% ', '$cidade_nome', '%' )";
+                                        
                                 $busca = mysqli_query($conexao, $sql);
                                     while ($array = mysqli_fetch_array($busca)){
 
@@ -48,10 +75,9 @@
                                         $nome = $array['nome'];
                                         $endereco = $array['endereco'];
                                         $telefone = $array['telefone'];
-
                         ?>
                         <tr>
-                            <th scope="row" class="texto"><a href="detalhe_loja.php?loja=<?php echo $nome ?>"><?php  echo $nome ?></a></th>
+                            <th scope="row" class="texto"><a href="detalhe_loja.php?loja=<?php  echo $nome ?>"><?php  echo $nome ?></a></th>
                             <td class="texto"><?php  echo $endereco ?></td>
                             <td class="texto"><?php  echo $telefone ?></td>
 
@@ -60,26 +86,23 @@
                          </tr>
                     </tbody>
                 </table>
-            <div class="estados" style="margin-top: 50px; margin-left:20px;">
+            <div class="estados" style="margin-top: 50px;">
                 <ul class="list-group" style="text-align: center;">           
-                <li class="list-group-item active" style="background-color: #ffc107;"><strong>Estados</strong></li>
-                    
-                <?php
-                    include 'conexao.php';
-                    $sql = "SELECT * FROM `estado`";
-                    $busca = mysqli_query($conexao, $sql);
-                    while ($array = mysqli_fetch_array($busca)){
+                    <li class="list-group-item active" style="background-color: #ffc107;"><strong>Bairros</strong></li>
                         
-                        $id_estado = $array['id'];
-                        $estado_nome = $array['nome'];
-                        $sigla = $array['sigla'];
+                     <?php
+                        include 'conexao.php';
+                        $sql = "SELECT * FROM `bairro` WHERE cidade_id = $id_cidade";
+                        $busca = mysqli_query($conexao, $sql);
+                        while ($array = mysqli_fetch_array($busca)){
+                            $bairro_nome = $array['nome'];
 
-                        ?>
+                            ?>
 
-                    <li class="list-group-item"><a href="estados.php?estado=<?php echo $estado_nome ?>&sigla=<?php echo $sigla ?>&id=<?php echo $id_estado ?>"><?php echo $estado_nome ?></a></li>
+                        <li class="list-group-item"><a href="bairro.php?bairro_nome=<?php echo $bairro_nome ?>"><?php echo $bairro_nome ?></a></li>
 
-                    <?php } ?>
-                </ul>                         
+                        <?php } ?>
+                </ul>                        
             </div>
         </div>
 
