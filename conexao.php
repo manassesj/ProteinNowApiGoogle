@@ -1,4 +1,4 @@
-  
+ 
 <?php
     $servername = "localhost"; //padrão - server local
     $database = "projpg";//alterar conforme o nome do seu banco de dados

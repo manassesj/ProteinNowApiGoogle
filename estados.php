@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+if(!$_SESSION['usuario']){
+
+  header('Location:index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt">
     <head>
@@ -28,28 +38,32 @@
         </form>
     </nav>
 
-    <div class="container" style="display: flex; margin: auto; max-width: 1300px;">
+    <div class="container" style="display: flex; margin: auto; max-width: 1400px;">
 
-        <div class="estados" style="margin-top: 50px;">
-                <ul class="list-group" style="text-align: center;">           
-                    <li class="list-group-item active" style="background-color: #ffc107;"><strong>Estados</strong></li>
-                        
-                    <?php
-                        include 'conexao.php';
-                        $sql = "SELECT * FROM `estado`";
-                        $busca = mysqli_query($conexao, $sql);
-                        while ($array = mysqli_fetch_array($busca)){
-                            $id = $array['id'];
-                            $estado_nome = $array['nome'];
-                            $sigla = $array['sigla'];
+        <div class="dropdown" style="margin-top: 48px">
+            <button class="btn btn-warning dropdown-toggle" style="color:#fff" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Estados
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    
+                <?php
+                    include 'conexao.php';
+                    $sql = "SELECT * FROM `estado`";
+                    $busca = mysqli_query($conexao, $sql);
+                    while ($array = mysqli_fetch_array($busca)){
+                        $id = $array['id'];
+                        $estado_nome = $array['nome'];
+                        $sigla = $array['sigla'];
 
-                            ?>
+                        ?>
+                    <center>
+                    <a class="dropdown-item" ><a href="estados.php?estado=<?php echo $estado_nome ?>&sigla=<?php echo $sigla ?>&id=<?php echo $id ?>"><?php echo $estado_nome ?></a></a>
+                    </center>
+                    <div class="dropdown-divider"></div> 
 
-                        <li class="list-group-item"><a href="estados.php?estado=<?php echo $estado_nome ?>&sigla=<?php echo $sigla ?>&id=<?php echo $id ?>"><?php echo $estado_nome ?></a></li>
-
-                        <?php } ?>
-                </ul>                                          
-            </div>            
+                    <?php } ?>
+            </div>
+        </div>          
 
                 <table class="table" style="margin-top: 50px;border-radius:15px; border: 2px solid #f3f3f3; margin-right:20px; margin-left:20px;" >
                     <thead class="black white-text"  style="background-color:#007bff; color: #fff">
@@ -88,25 +102,30 @@
                          </tr>
                     </tbody>
                 </table>
-            <div class="estados" style="margin-top: 50px;">
-                <ul class="list-group" style="text-align: center;">           
-                    <li class="list-group-item active" style="background-color: #ffc107;"><strong>Cidades</strong></li>
+            <div class="dropdown" style="margin-top: 48px">
+                <button class="btn btn-warning dropdown-toggle" style="color:#fff" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Cidades
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         
-                     <?php
+                    <?php
                         include 'conexao.php';
                         $sql = "SELECT * FROM `cidade` WHERE estado_id = $id_estado";
                         $busca = mysqli_query($conexao, $sql);
                         while ($array = mysqli_fetch_array($busca)){
-                            $id = $array['id'];
+                            $id_cidade = $array['id'];
                             $cidade_nome = $array['nome'];
 
                             ?>
-
-                        <li class="list-group-item"><a href="cidade.php?id_cidade=<?php echo $id?>&cidade_nome=<?php echo $cidade_nome?>"><?php echo $cidade_nome ?></a></li>
+                        <center>
+                        <a class="dropdown-item" ><a href="cidade.php?id_cidade=<?php echo $id_cidade ?>&cidade_nome=<?php echo $cidade_nome ?>"><?php echo $cidade_nome ?></a></a>
+                        </center>
+                        <div class="dropdown-divider"></div> 
 
                         <?php } ?>
-                </ul>                        
-            </div>
+                </div>
+            </div>          
+                
         </div>
 
         

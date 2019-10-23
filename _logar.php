@@ -13,6 +13,10 @@
     $total = mysqli_num_rows($buscar);
 
     if($total > 0){
+        session_start();
+        $_SESSION['usuario'] = $usuario;
+
+        
         header('Location: lojas.php');
     }
     else{

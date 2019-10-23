@@ -32,7 +32,7 @@
 
         <div class="estados" style="margin-top: 50px;">
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-warning dropdown-toggle" style="color:#fff" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Dropdown button
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -47,8 +47,10 @@
                             $sigla = $array['sigla'];
 
                             ?>
-
-                        <a class="dropdown-item"><a href="estados.php?estado=<?php echo $estado_nome ?>&sigla=<?php echo $sigla ?>&id=<?php echo $id ?>"><?php echo $estado_nome ?></a></a>
+                        <center>
+                        <a class="dropdown-item" ><a href="estados.php?estado=<?php echo $estado_nome ?>&sigla=<?php echo $sigla ?>&id=<?php echo $id ?>"><?php echo $estado_nome ?></a></a>
+                        </center>
+                        <div class="dropdown-divider"></div> 
 
                         <?php } ?>
                 </div>

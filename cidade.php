@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+
+if(!$_SESSION['usuario']){
+
+  header('Location:index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt">
     <head>
@@ -30,25 +40,29 @@
 
     <div class="container" style="display: flex; margin: auto; max-width: 1300px;">
 
-        <div class="estados" style="margin-top: 50px;">
-                <ul class="list-group" style="text-align: center;">           
-                    <li class="list-group-item active" style="background-color: #ffc107;"><strong>Estados</strong></li>
-                        
-                    <?php
-                        include 'conexao.php';
-                        $sql = "SELECT * FROM `cidade`";
-                        $busca = mysqli_query($conexao, $sql);
-                        while ($array = mysqli_fetch_array($busca)){
-                            $id_cidade = $array['id'];
-                            $cidade_nome = $array['nome'];
-                            
-                            ?>
+    <div class="dropdown" style="margin-top: 48px">
+            <button class="btn btn-warning dropdown-toggle" style="color:#fff" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Cidades
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    
+                <?php
+                    include 'conexao.php';
+                    $sql = "SELECT * FROM `cidade`";
+                    $busca = mysqli_query($conexao, $sql);
+                    while ($array = mysqli_fetch_array($busca)){
+                        $id_cidade = $array['id'];
+                        $nome_cidade = $array['nome'];
 
-                        <li class="list-group-item"><a href="cidade.php?cidade_nome=<?php echo $cidade_nome ?>&id_cidade=<?php echo $id_cidade ?>"><?php echo $cidade_nome ?></a></li>
+                        ?>
+                    <center>
+                    <a class="dropdown-item" ><a href=" cidade.php?cidade_nome=<?php echo $nome_cidade ?>&id_cidade=<?php echo $id_cidade ?>"><?php echo $nome_cidade ?></a></a>
+                    </center>
+                    <div class="dropdown-divider"></div> 
 
-                        <?php } ?>
-                </ul>                                          
-            </div>            
+                    <?php } ?>
+            </div>
+    </div>               
 
                 <table class="table" style="margin-top: 50px;border-radius:15px; border: 2px solid #f3f3f3; margin-right:20px; margin-left:20px;" >
                     <thead class="black white-text"  style="background-color:#007bff; color: #fff">
@@ -86,24 +100,28 @@
                          </tr>
                     </tbody>
                 </table>
-            <div class="estados" style="margin-top: 50px;">
-                <ul class="list-group" style="text-align: center;">           
-                    <li class="list-group-item active" style="background-color: #ffc107;"><strong>Bairros</strong></li>
-                        
-                     <?php
-                        include 'conexao.php';
-                        $sql = "SELECT * FROM `bairro` WHERE cidade_id = $id_cidade";
-                        $busca = mysqli_query($conexao, $sql);
-                        while ($array = mysqli_fetch_array($busca)){
-                            $bairro_nome = $array['nome'];
+                <div class="dropdown" style="margin-top: 48px">
+                    <button class="btn btn-warning dropdown-toggle" style="color:#fff" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Bairros
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            
+                        <?php
+                            include 'conexao.php';
+                            $sql = "SELECT * FROM `bairro` WHERE cidade_id = $id_cidade";
+                            $busca = mysqli_query($conexao, $sql);
+                            while ($array = mysqli_fetch_array($busca)){
+                                $nome_bairro = $array['nome'];
 
-                            ?>
+                                ?>
+                            <center>
+                            <a class="dropdown-item" ><a href="bairro.php?bairro_nome=<?php echo $nome_bairro ?>"><?php echo $nome_bairro ?></a></a>
+                            </center>
+                            <div class="dropdown-divider"></div> 
 
-                        <li class="list-group-item"><a href="bairro.php?bairro_nome=<?php echo $bairro_nome ?>"><?php echo $bairro_nome ?></a></li>
-
-                        <?php } ?>
-                </ul>                        
-            </div>
+                            <?php } ?>
+                    </div>
+                </div>          
         </div>
 
         

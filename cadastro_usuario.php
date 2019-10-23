@@ -29,7 +29,7 @@
         <div class="container" id="tamanho"">
             <h4 style="text-align: center; padding-top: 15px;">Cadastro de Usuario</h4>
 
-            <form action="sql/_inserir_usuario.php" method="post" style="margin-top: 20px; padding-bottom: 15px">
+            <form action="_inserir_usuario.php" method="post" style="margin-top: 20px; padding-bottom: 15px">
             
                 <div class="form-group">
                     <label for="">Nome do Usúario</label>
