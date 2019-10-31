@@ -9,7 +9,7 @@
 
     $sql = "INSERT INTO `usuario`( `nome`, `email`, `senha`) VALUES ('$nome','$email','$senha')";
 
-    $inserir = mysqli_query($conexao, $sql);
+    $inserir = pg_query($conexao, $sql);
     
 
 ?>
